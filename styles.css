@@ -197,11 +197,16 @@ img {
   display: flex;
   align-items: center;
   margin-top: 0;
+  background-attachment: scroll;
 }
 
+/* 🔥 CORRIGIDO DE VERDADE */
 .hero-overlay {
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.3) 100%);
 }
 
@@ -225,14 +230,26 @@ img {
   font-size: 3.8rem;
   margin-bottom: 1.5rem;
   color: var(--cor-texto);
+
+  /* 🔥 MAIS SUAVE */
+  text-shadow: 0 1px 4px rgba(0,0,0,0.08);
 }
 
 .hero p {
   font-size: 1.2rem;
   margin-bottom: 2.5rem;
   color: var(--cor-texto-suave);
+
+  /* 🔥 MAIS LIMPO */
+  text-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
+/* Mobile */
+@media (max-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.3) 100%);
+  }
+}
 /* ==================== SEÇÃO HEADER ==================== */
 .section-header {
   text-align: center;
@@ -275,15 +292,43 @@ img {
   font-size: 1.05rem;
 }
 
-.sobre-imagem .image-placeholder {
+/* ==================== IMAGENS DOS PLACEHOLDERS ==================== */
+.sobre-imagem .image-placeholder,
+.doutora-imagem .image-placeholder {
   overflow: hidden;
-  height: 400px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 20px 30px -10px var(--cor-sombra);
 }
 
-.sobre-imagem img {
+.sobre-imagem .image-placeholder {
+  height: auto;
+  max-height: 450px;
+}
+
+.sobre-imagem img,
+.doutora-imagem img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.doutora-imagem .image-placeholder {
+  height: auto;
+  max-height: 550px;
+}
+
+/* Ajuste específico para mobile */
+@media (max-width: 768px) {
+  .sobre-imagem .image-placeholder,
+  .doutora-imagem .image-placeholder {
+    max-height: 400px;
+  }
+  
+  .doutora-imagem .image-placeholder {
+    max-height: 450px;
+  }
 }
 
 /* ==================== CARDS ESPECIALIDADES ==================== */
@@ -331,17 +376,6 @@ img {
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-}
-
-.doutora-imagem .image-placeholder {
-  height: 500px;
-  overflow: hidden;
-}
-
-.doutora-imagem img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .doutora-conteudo .section-tag {
@@ -395,55 +429,31 @@ img {
   overflow: hidden;
   border-radius: var(--border-radius);
   box-shadow: 0 20px 30px -8px var(--cor-sombra);
-}
 
+  /* 🔥 CORREÇÃO */
+  margin: 0 auto;
+  width: 100%;
+  max-width: 900px;
+
+  aspect-ratio: 16 / 9;
+  max-height: 500px;
+}
 .carousel-slides {
   display: flex;
+  height: 100%;
   transition: transform 0.5s ease-in-out;
 }
 
 .carousel-slide {
   flex: 0 0 100%;
+  height: 100%;
 }
 
 .carousel-slide img {
   width: 100%;
-  height: 400px;
-  object-fit: cover;
-}
-
-/* Específico para antes/depois */
-.comparacao {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-}
-
-.comparacao-item {
-  position: relative;
-  height: 350px;
-}
-
-.comparacao-item img {
-  width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-.badge-antes, .badge-depois {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  background: rgba(0,0,0,0.5);
-  color: white;
-  padding: 4px 16px;
-  border-radius: 30px;
-  font-size: 0.9rem;
-  backdrop-filter: blur(4px);
-}
-
-.badge-depois {
-  background: var(--cor-verde-menta);
+  object-position: center;
 }
 
 .carousel-btn {
@@ -493,6 +503,96 @@ img {
 .dot.active {
   background: var(--cor-verde-menta);
   width: 24px;
+}
+
+/* ==================== ANTES E DEPOIS ==================== */
+.comparacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  height: 100%;
+  background-color: #fff;
+}
+
+.comparacao-item {
+  position: relative;
+  height: 350px;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.comparacao-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.badge-antes, .badge-depois {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  z-index: 2;
+}
+
+.badge-depois {
+  background: var(--cor-verde-menta);
+  left: auto;
+  right: 16px;
+}
+
+@media (max-width: 768px) {
+
+  .carousel-container {
+    height: auto;
+    max-height: none;
+    aspect-ratio: unset;
+  }
+
+  .carousel-slide {
+    height: auto;
+  }
+
+  .comparacao {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+  }
+
+  .comparacao-item {
+    height: auto;
+  }
+
+  .comparacao-item img {
+    height: auto;
+  }
+
+  .badge-depois {
+    right: 16px;
+    left: auto;
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .prev { left: 10px; }
+  .next { right: 10px; }
+}
+
+@media (max-width: 480px) {
+  .comparacao-item {
+    height: 220px;
+  }
 }
 
 /* ==================== AVALIAÇÕES ==================== */
@@ -552,11 +652,37 @@ img {
   text-align: center;
 }
 
+/* ==================== MAPA ==================== */
 .contato-mapa .mapa-container {
-  height: 380px;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 75%;
   border-radius: var(--border-radius);
   overflow: hidden;
   box-shadow: 0 15px 30px -8px var(--cor-sombra);
+}
+
+.contato-mapa .mapa-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Ajuste do grid de contato */
+@media (max-width: 768px) {
+  .contato-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contato-mapa .mapa-container {
+    padding-bottom: 100%;
+    max-height: 350px;
+  }
 }
 
 /* ==================== FOOTER ==================== */
@@ -678,4 +804,10 @@ img {
 
 @media (max-width: 480px) {
   .hero h1 { font-size: 2rem; }
+}
+
+/* ==================== CORREÇÕES ESPECÍFICAS PARA CARROSSEL ==================== */
+#clinicaCarousel,
+#antesDepoisCarousel {
+  height: 100%;
 }
